@@ -28,7 +28,7 @@ const navigation = [
 const userNavigation = [
   { name: 'Your Profile', href: '' },
   { name: 'My Cart', href: '/cart' },
-  { name: 'My Bookmarks', href: '#' },
+  { name: 'My Bookmarks', href: '/bookMark' },
   { name: 'Settings', href: '#' },
   { name: 'Sign out', href: '#' },
 ]
@@ -49,7 +49,7 @@ export default function Example() {
       setBookmarkCount(bookmarkItems.length);
     };
 
-    updateCounts(); // Initial count update
+    updateCounts(); 
 
     const storageListener = () => {
       updateCounts();

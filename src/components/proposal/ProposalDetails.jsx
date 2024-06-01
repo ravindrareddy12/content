@@ -8,7 +8,7 @@ const ProposalDetails = () => {
     const contents = useSelector(state => state.contents);
     const { id } = useParams();
     console.log(contents[parseInt(id)])
-    const tags = ['Tag1', 'Tag2', 'Tag3']
+    const tags = [{name:'Vistors',number:'1.5M'},{name:'Metric 2',number:'4.5M'},{name:'KPR Metric',number:'5.5M'}]
     const [toast, setToast] = useState({ show: false, message: '' });
 
   const showToast = (message) => {
@@ -40,12 +40,15 @@ const ProposalDetails = () => {
                 <div className="p-8">
                     <div className="uppercase tracking-wide text-sm text-indigo-500 font-semibold">{contents[parseInt(id)].name}</div>
                     <p className="mt-2 text-gray-500">{contents[parseInt(id)].description}</p>
-                    <div className="mt-4">
-                        {tags.map((tag, index) => (
-                            <span key={index} className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
-                                {tag}
-                            </span>
-                        ))}
+                    <div className="flex flex-wrap gap-2 mt-4">
+                      {tags.map((tag, index) => (
+                        <span key={index} className="inline-flex items-center bg-blue-100 text-blue-800 text-sm font-medium mr-2 px-3 py-1 rounded-full">
+                          {tag.name}
+                          <span className="ml-2 bg-blue-200 text-blue-800 text-xs font-semibold mr-1 px-2.5 py-0.5 rounded">
+                            {tag.number}
+                          </span>
+                        </span>
+                      ))}
                     </div>
                     <div className="mt-4">
                         <span className="text-gray-700">Price: </span>
@@ -56,17 +59,21 @@ const ProposalDetails = () => {
                             className="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded"
                             onClick={()=>onAddToCart(contents[parseInt(id)])}
                         >
-                            Add to Cart
+Add to Cart
                         </button>
                         <button
                             className="ml-2 bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold py-2 px-4 rounded"
                         >
                             Share
                         </button>
+                      
                         {toast.show && <Toast message={toast.message} onClose={() => setToast({ show: false, message: '' })} />}
+                        
                     </div>
                 </div>
+              
             </div>
+            
         </div>
     );
 };

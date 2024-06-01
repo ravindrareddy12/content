@@ -12,7 +12,9 @@ const ProductCard = ({ product }) => {
     }, 3000); // Toast disappears after 3 seconds
   };
 
-  const handleAddToCart = (product) => {
+  const handleAddToCart = (event, product) => {
+    event.stopPropagation();
+
     let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
     let existingProduct = cartItems.find(item => item.id === product.id);
 
@@ -29,7 +31,9 @@ const ProductCard = ({ product }) => {
     showToast(`${product.name} added to cart!`);
   };
 
-  const handleBookmark = (product) => {
+  const handleBookmark = (event, product) => {
+    event.stopPropagation();
+
     let bookmarkedItems = JSON.parse(localStorage.getItem('bookmarkedItems')) || [];
     let isBookmarked = bookmarkedItems.find(item => item.id === product.id);
 
@@ -52,13 +56,13 @@ const ProductCard = ({ product }) => {
       <p className="text-sm mb-2">Starting from: ₹{product.price}</p>
       <button 
         className="bg-blue-500 text-white px-4 py-2 rounded mr-2"
-        onClick={() => handleAddToCart(product)}
+        onClick={(event) => handleAddToCart(event, product)}
       >
         Add to Cart
       </button>
       <button 
         className="bg-gray-200 text-black px-4 py-2 rounded"
-        onClick={() => handleBookmark(product)}
+        onClick={(event) => handleBookmark(event, product)}
       >
         Bookmark
       </button>

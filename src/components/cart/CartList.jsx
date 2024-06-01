@@ -11,7 +11,6 @@ function ProductItem({ product, index, onRemove }) {
   };
 
   return (
-    
     <li key={product.id} className="flex py-6 sm:py-10">
       <div className="flex-shrink-0">
         <img
@@ -44,7 +43,6 @@ function ProductItem({ product, index, onRemove }) {
             <label htmlFor={`quantity-${index}`} className="sr-only">
               Quantity, {product.name}
             </label>
-           
 
             <div className="absolute right-0 top-0">
               <button
@@ -72,7 +70,7 @@ function ProductItem({ product, index, onRemove }) {
   );
 }
 
-function OrderSummary({ subtotal, shipping, tax, total }) {
+function OrderSummary({ subtotal, shipping, tax, total, onCheckout }) {
   return (
     <section
       aria-labelledby="summary-heading"
@@ -113,8 +111,9 @@ function OrderSummary({ subtotal, shipping, tax, total }) {
       </dl>
       <div className="mt-6">
         <button
-          type="submit"
+          type="button"
           className="w-full rounded-md border border-transparent bg-indigo-600 px-4 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50"
+          onClick={onCheckout}
         >
           Checkout
         </button>
@@ -123,44 +122,145 @@ function OrderSummary({ subtotal, shipping, tax, total }) {
   );
 }
 
+function Modal({ isOpen, onClose }) {
+  const [files, setFiles] = useState([]);
+
+  const handleFileUpload = (e) => {
+    const uploadedFiles = Array.from(e.target.files);
+    setFiles((prevFiles) => [...prevFiles, ...uploadedFiles]);
+  };
+
+  const handleRemoveFile = (index) => {
+    setFiles((prevFiles) => prevFiles.filter((_, i) => i !== index));
+  };
+
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed z-10 inset-0 overflow-y-auto">
+      <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+        <div className="fixed inset-0 transition-opacity" aria-hidden="true">
+          <div className="absolute inset-0 bg-gray-500 opacity-75"></div>
+        </div>
+
+        <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+
+        <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+          <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+            <div className="sm:flex sm:items-start">
+              <div className="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-indigo-100 sm:mx-0 sm:h-10 sm:w-10">
+                <CheckIcon className="h-6 w-6 text-indigo-600" aria-hidden="true" />
+              </div>
+              <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                <h3 className="text-lg leading-6 font-medium text-gray-900">Upload Document</h3>
+                <div className="mt-2">
+                  <input type="file" multiple onChange={handleFileUpload} />
+                  <ul className="mt-2">
+                    {files.map((file, index) => (
+                      <li key={index} className="flex items-center justify-between text-sm text-gray-600">
+                        <span>{file.name}</span>
+                        <button
+                          type="button"
+                          className="ml-2 text-red-600 hover:text-red-900"
+                          onClick={() => handleRemoveFile(index)}
+                        >
+                          <XMarkIcon className="h-5 w-5" aria-hidden="true" />
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+            <button
+              type="button"
+              className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
+              onClick={onClose}
+            >
+              Close
+            </button>
+            <button
+              type="button"
+              className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-gray-400 text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
+              onClick={onClose}
+            >
+              Upload
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function ShoppingCart() {
-//   const [cartProducts, setCartProducts] = useState(products);
   const [cartProducts, setCartProducts] = useState(() => {
     const storedProducts = localStorage.getItem('cartItems');
     return storedProducts ? JSON.parse(storedProducts) : [];
   });
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [fileName, setFileName] = useState('');
+
   const handleRemoveProduct = (productId) => {
-    setCartProducts(cartProducts.filter((product) => product.id !== productId));
-    localStorage.setItem('cartItems',JSON.stringify(cartProducts))
+    const updatedProducts = cartProducts.filter((product) => product.id !== productId);
+    setCartProducts(updatedProducts);
+    localStorage.setItem('cartItems', JSON.stringify(updatedProducts));
   };
 
+  const handleCheckout = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleFileUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setFileName(file.name);
+    }
+  };
+
+  const handleRemoveFile = () => {
+    setFileName('');
+  };
   const subtotal = cartProducts.map(item => item.price * item.quantity).reduce((acc, curr) => acc + curr, 0);
-//   const subtotal = cartProducts.reduce((acc, curr) => acc + parseFloat(curr.price.replace('$', '')) * curr.quantity, 0).toFixed(2);
+  // const subtotal = cartProducts.reduce((acc, curr) => acc + parseFloat(curr.price.replace('$', '')) * curr.quantity, 0).toFixed(2);
   const shipping = 5; // You can calculate this dynamically if needed
   const tax = (subtotal * 0.085).toFixed(2); // Assuming 8.5% tax rate
-  const total = parseInt(subtotal)  +  parseInt(tax)  + shipping;
+  const total = (parseFloat(subtotal) + parseFloat(tax) + shipping).toFixed(2);
 
   return (
     <>
-    <Header />
-    <div className="bg-white">
-      <div className="mx-auto max-w-2xl px-4 pb-24 pt-16 sm:px-6 lg:max-w-7xl lg:px-8">
-        <h1 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Proposal Cart</h1>
-        <form className="mt-12 lg:grid lg:grid-cols-12 lg:items-start lg:gap-x-12 xl:gap-x-16">
-          <section aria-labelledby="cart-heading" className="lg:col-span-7">
-            <h2 id="cart-heading" className="sr-only">Items in your shopping cart</h2>
-            <ul role="list" className="divide-y divide-gray-200 border-b border-t border-gray-200">
-              {cartProducts.map((product, index) => (
-                <ProductItem key={product.id} product={product} index={index} onRemove={handleRemoveProduct} />
-              ))}
-            </ul>
-          </section>
+      <Header />
+      <div className="bg-white">
+        <div className="mx-auto max-w-2xl px-4 pb-24 pt-16 sm:px-6 lg:max-w-7xl lg:px-8">
+          <h1 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Proposal Cart</h1>
+          <form className="mt-12 lg:grid lg:grid-cols-12 lg:items-start lg:gap-x-12 xl:gap-x-16">
+            <section aria-labelledby="cart-heading" className="lg:col-span-7">
+              <h2 id="cart-heading" className="sr-only">Items in your shopping cart</h2>
+              <ul role="list" className="divide-y divide-gray-200 border-b border-t border-gray-200">
+                {cartProducts.map((product, index) => (
+                  <ProductItem key={product.id} product={product} index={index} onRemove={handleRemoveProduct} />
+                ))}
+              </ul>
+            </section>
 
-          <OrderSummary subtotal={subtotal} shipping={shipping} tax={tax} total={total} />
-        </form>
+            <OrderSummary subtotal={subtotal} shipping={shipping} tax={tax} total={total} onCheckout={handleCheckout} />
+          </form>
+        </div>
       </div>
-    </div>
+
+      <Modal
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        onFileUpload={handleFileUpload}
+        fileName={fileName}
+        onRemoveFile={handleRemoveFile}
+      />
     </>
   );
 }
-
