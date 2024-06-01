@@ -1,5 +1,6 @@
-import { Fragment } from 'react'
+import { Fragment,useState,useEffect } from 'react'
 import logo from '../../assets/images/logo.png'
+import { Link } from 'react-router-dom'
 import {
   Disclosure,
   DisclosureButton,
@@ -25,8 +26,8 @@ const navigation = [
   { name: 'Pakages', href: '#', current: false },
 ]
 const userNavigation = [
-  { name: 'Your Profile', href: '#' },
-  { name: 'My Cart', href: '#' },
+  { name: 'Your Profile', href: '' },
+  { name: 'My Cart', href: '/cart' },
   { name: 'My Bookmarks', href: '#' },
   { name: 'Settings', href: '#' },
   { name: 'Sign out', href: '#' },
@@ -37,11 +38,34 @@ function classNames(...classes) {
 }
 
 export default function Example() {
+  const [cartCount, setCartCount] = useState(0); 
+  const [bookmarkCount, setBookmarkCount] = useState(0);
+
+  useEffect(() => {
+    const updateCounts = () => {
+      const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+      const bookmarkItems = JSON.parse(localStorage.getItem('bookmarkedItems')) || [];
+      setCartCount(cartItems.length);
+      setBookmarkCount(bookmarkItems.length);
+    };
+
+    updateCounts(); // Initial count update
+
+    const storageListener = () => {
+      updateCounts();
+    };
+
+    window.addEventListener('storage', storageListener);
+
+    return () => {
+      window.removeEventListener('storage', storageListener);
+    };
+  }, []);
   return (
     <Disclosure as="nav" className="bg-gray-800">
       {({ open }) => (
         <>
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex h-16 justify-between">
               <div className="flex">
                 <div className="-ml-2 mr-2 flex items-center md:hidden">
@@ -57,11 +81,13 @@ export default function Example() {
                   </DisclosureButton>
                 </div>
                 <div className="flex flex-shrink-0 items-center">
+                  <a href='/'>
                   <img
                     className="h-8 w-auto"
                     src={logo}
                     alt="Your Company"
                   />
+                  </a>
                 </div>
                 <div className="hidden md:ml-6 md:flex md:items-center md:space-x-4">
                   {navigation.map((item) => (
@@ -128,6 +154,17 @@ export default function Example() {
                                 )}
                               >
                                 {item.name}
+                                {(item.name === 'My Cart' && cartCount > 0) && (
+                                  <span className="absolute right-3 top-[50px] inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-500 text-white">
+                                    {cartCount}
+                                  </span>
+                                )}
+
+                                {(item.name === 'My Bookmarks' && bookmarkCount > 0) && (
+                                  <span className="absolute right-3 top-[80px] inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-500 text-white">
+                                    {bookmarkCount}
+                                  </span>
+                                )}
                               </a>
                             )}
                           </MenuItem>

@@ -26,7 +26,7 @@ const Sidebar = ({
   const languages = ['English', 'Spanish', 'French'];
   const regions = ['North America', 'Europe', 'Asia'];
   const productTypes = ['Software', 'Hardware', 'Services'];
-  const budgets = ['Low', 'Medium', 'High'];
+  const budgets = [5000, 6000, 7000];
 
   return (
     <aside className="w-1/5 p-4 bg-gray-100">
