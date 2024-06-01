@@ -134,14 +134,6 @@ export default function ShoppingCart() {
     localStorage.setItem('cartItems',JSON.stringify(cartProducts))
   };
 
-//   const subtotal=()=>{
-//     let total = 0
-//     cartProducts.map((e)=>{
-//         total +=e.price
-
-//     })
-
-//   }
   const subtotal = cartProducts.map(item => item.price * item.quantity).reduce((acc, curr) => acc + curr, 0);
 //   const subtotal = cartProducts.reduce((acc, curr) => acc + parseFloat(curr.price.replace('$', '')) * curr.quantity, 0).toFixed(2);
   const shipping = 5; // You can calculate this dynamically if needed

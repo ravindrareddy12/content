@@ -1,7 +1,7 @@
 import React from 'react';
 import ProductCard from './ProductCard';
 import { useSelector } from 'react-redux';
-
+import { useNavigate } from 'react-router-dom';
 const Marketplace = ({
   selectedCategories,
   selectedLanguage,
@@ -10,7 +10,7 @@ const Marketplace = ({
   selectedBudget
 }) => {
   const contents = useSelector(state => state.contents);
-
+  const navigate = useNavigate();
   const filteredContents = contents.filter(product => {
     const categoryMatch = selectedCategories.length === 0 || selectedCategories.includes(product.category);
     const languageMatch = !selectedLanguage || product.language === selectedLanguage;
@@ -21,6 +21,10 @@ const Marketplace = ({
     return categoryMatch && languageMatch && regionMatch && productTypeMatch && budgetMatch;
   });
 
+  function proDetailPage(id){
+    console.log(id)
+    navigate('/prosal/' + id);
+  }
   return (
     <div className="flex-1 p-4">
       <div className="mb-4 flex justify-between items-center">
@@ -29,7 +33,7 @@ const Marketplace = ({
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {filteredContents.map(product => (
-          <button key={product.id} onClick={() => console.log(product.id)}>
+          <button key={product.id} onClick={() => proDetailPage(product.id)}>
             <ProductCard product={product} />
           </button>
         ))}
