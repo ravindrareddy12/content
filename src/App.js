@@ -1,9 +1,14 @@
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Home from './components/pages/Home';
 
 function App() {
   return (
-    <div>
-        <h1 className='text-3xl bg-blue-500'>heello world</h1>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+      </Routes>
+    </Router>
   );
 }
 
