@@ -243,13 +243,15 @@ export default function ShoppingCart() {
             <section aria-labelledby="cart-heading" className="lg:col-span-7">
               <h2 id="cart-heading" className="sr-only">Items in your shopping cart</h2>
               <ul role="list" className="divide-y divide-gray-200 border-b border-t border-gray-200">
-                {cartProducts.map((product, index) => (
+                {cartProducts.length>0 ? cartProducts.map((product, index) => (
                   <ProductItem key={product.id} product={product} index={index} onRemove={handleRemoveProduct} />
-                ))}
+                )) : <h1 >
+                Proposal Cart Empty
+            </h1>}
               </ul>
             </section>
 
-            <OrderSummary subtotal={subtotal} shipping={shipping} tax={tax} total={total} onCheckout={handleCheckout} />
+            {cartProducts.length>0 ? <OrderSummary subtotal={subtotal} shipping={shipping} tax={tax} total={total} onCheckout={handleCheckout}  /> : ''}
           </form>
         </div>
       </div>

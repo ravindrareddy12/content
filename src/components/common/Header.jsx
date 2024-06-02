@@ -1,6 +1,6 @@
 import { Fragment,useState,useEffect } from 'react'
 import logo from '../../assets/images/logo.png'
-import { Link } from 'react-router-dom'
+import { Link,useNavigate } from 'react-router-dom'
 import {
   Disclosure,
   DisclosureButton,
@@ -40,7 +40,7 @@ function classNames(...classes) {
 export default function Example() {
   const [cartCount, setCartCount] = useState(0); 
   const [bookmarkCount, setBookmarkCount] = useState(0);
-
+  const navigate = useNavigate(); 
   useEffect(() => {
     const updateCounts = () => {
       const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
@@ -61,6 +61,10 @@ export default function Example() {
       window.removeEventListener('storage', storageListener);
     };
   }, []);
+  const handleClick = () => {
+    navigate('/newproposal'); 
+  };
+
   return (
     <Disclosure as="nav" className="bg-gray-800">
       {({ open }) => (
@@ -109,6 +113,7 @@ export default function Example() {
                 <div className="flex-shrink-0">
                   <button
                     type="button"
+                    onClick={handleClick}
                     className="relative inline-flex items-center gap-x-1.5 rounded-md bg-indigo-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
                   >
                     <PlusIcon className="-ml-0.5 h-5 w-5" aria-hidden="true" />

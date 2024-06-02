@@ -15,7 +15,7 @@ const ProposalDetails = () => {
     setToast({ show: true, message });
     setTimeout(() => {
       setToast({ show: false, message: '' });
-    }, 3000); 
+    }, 2000); 
   };
     const onAddToCart = (product) => {
         let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
