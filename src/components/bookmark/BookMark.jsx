@@ -25,7 +25,7 @@ const BookmarkedItems = () => {
             <p className="text-gray-600">Region: {item.region}</p>
             <p className="text-gray-600">Category: {item.category}</p>
           </div>
-        )) : <h1 class="text-3xl top-[250px] fixed left-[400px] font-bold text-red-600 bg-yellow-200 p-5 rounded-lg shadow-lg">
+        )) : <h1 className="text-3xl top-[250px] fixed left-[400px] font-bold text-red-600 bg-yellow-200 p-5 rounded-lg shadow-lg">
       Book Marked Empty
     </h1>}
       </div>
