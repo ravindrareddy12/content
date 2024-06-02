@@ -5,8 +5,8 @@ import Cart from '../src/components/cart/CartList';
 import ProposalDetails from '../src/components/proposal/ProposalShow';
 import BookmarkedItems from './components/bookmark/BookMark';
 import NewProposal from '../src/components/proposal/NewProposal';
-// import Login from './components/user/Signin';
-// import Register from './components/user/Register';
+import Login from './components/user/Signin';
+import Register from './components/user/Register';
 import PrivateRoute from './PrivateRoute'; 
 
 
@@ -39,8 +39,8 @@ function App() {
             <NewProposal />
           </PrivateRoute>
         } />
-        {/* <Route path='/' element={<Login />} />
-        <Route path='/register' element={<Register />} /> */}
+        <Route path='/' element={<Login />} />
+        <Route path='/register' element={<Register />} />
       </Routes>
     </Router>
   );
