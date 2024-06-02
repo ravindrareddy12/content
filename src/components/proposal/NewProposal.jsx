@@ -244,7 +244,7 @@ const App = () => {
                     </select>
                   </div>
                   <div className="w-1/2 pl-2">
-                    <label htmlFor="geoLoc" className="block mb-2">Select Geographic Location</label>
+                    <label  className="block mb-2">Select Geographic Location</label>
                     <select
                       id="region"
                       className="w-full p-2 border border-gray-300 rounded"
@@ -367,7 +367,7 @@ const App = () => {
               </div>
               <div className="flex mb-4">
                   <div className="w-1/2 pr-2">
-                    <label htmlFor="mediaKitPri" className="block mb-2">Media Kit Price</label>
+                    <label  className="block mb-2">Media Kit Price</label>
                     <input
                       type="number"
                       id="mediaKitPri"
