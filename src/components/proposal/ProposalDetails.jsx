@@ -29,12 +29,12 @@ const ProposalDetails = () => {
         if (existingProduct) {
           existingProduct.quantity += 1;
         } else {
-          product.quantity = 1;
-          cartItems.push(product);
+        
+          cartItems.push(cartItems);
         }
     
         localStorage.setItem('cartItems', JSON.stringify(cartItems));
-        showToast(`${product.name} added to cart!`);
+        showToast(`${contents.name} added to cart!`);
       };
     return (
         <div className="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl">
