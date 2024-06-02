@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from  'axios'
 
 const RegisterComponent = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -12,11 +15,28 @@ const RegisterComponent = () => {
     setPassword(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit =async (e) => {
     e.preventDefault();
     // Add your register logic here
     console.log('Registered:', { email, password });
+    e.preventDefault();
+    try{
+      let payload = {}
+      payload.email = email
+      payload.password= password
+      const res =await axios.post('https://gurkul.onrender.com/login',payload)
+      console.log(res)
+      if(res.status===200){
+        localStorage.setItem('login',true)
+        navigate('/home')
+      }
+    }catch(e){
+      console.log(e)
+    }
   };
+  const goRegister = ()=>{
+   navigate('/register')
+  }
 
   return (
     <div className="flex justify-center items-center h-screen">
@@ -53,12 +73,22 @@ const RegisterComponent = () => {
               />
             </div>
             <button
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              type="submit"
+            >
+              Login
+            </button>
+
+
+          </form>
+          <br/>
+          <button
+           onClick={goRegister}
+              className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
               type="submit"
             >
               Register
             </button>
-          </form>
         </div>
       </div>
     </div>

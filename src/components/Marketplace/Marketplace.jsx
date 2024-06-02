@@ -33,9 +33,9 @@ const Marketplace = ({
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {filteredContents.map(product => (
-          <button key={product.id} onClick={() => proDetailPage(product.id)}>
-            <ProductCard product={product} />
-          </button>
+          // <button onClick={() => proDetailPage(product.id)}>
+            <ProductCard  key={product.id} product={product} />
+          // </button>
         ))}
       </div>
     </div>
