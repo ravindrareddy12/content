@@ -15,29 +15,29 @@ function App() {
     <Router>
       <Routes>
         <Route path="/home" element={
-          <PrivateRoute>
+          
             <Home />
-          </PrivateRoute>
+         
         } />
         <Route path='/cart' element={
-          <PrivateRoute>
+          
             <Cart />
-          </PrivateRoute>
+         
         } />
         <Route path='/prosal/:id?' element={
-          <PrivateRoute>
+          
             <ProposalDetails />
-          </PrivateRoute>
+         
         } />
         <Route path='/bookMark' element={
-          <PrivateRoute>
+          
             <BookmarkedItems />
-          </PrivateRoute>
+         
         } />
         <Route path='/newproposal' element={
-          <PrivateRoute>
+          
             <NewProposal />
-          </PrivateRoute>
+         
         } />
         <Route path='/' element={<Login />} />
         <Route path='/register' element={<Register />} />
