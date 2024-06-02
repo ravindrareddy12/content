@@ -145,7 +145,14 @@ const App = () => {
                   onChange={(e) => setOffering((prev) => ({ ...prev, offcategory: e.target.value }))}
                   className="w-full p-2 border border-gray-300 rounded"
                 >
-                  <option value="contentdistribution">Content Distribution</option>
+                   <option value="contentdistribution">Content Distribution</option>
+                    <option value="ads">Ads</option>
+                    <option value="twitterinfluencers">Twitter Influencers</option>
+                    <option value="telegraminfluencers">Telegram Influencers</option>
+                    <option value="youtubeinfluencers">YouTube Influencers</option>
+                    <option value="instagaminfluencers">Instagram Influencers</option>
+                    <option value="icolisting">ICO Listing</option>
+                    <option value="exchangelisting">Exchange Listing</option>
                   {/* Add more categories here as needed */}
                 </select>
               </div>

@@ -25,13 +25,8 @@ const navigation = [
   { name: 'Market Place ', href: '/home', current: false },
   { name: 'Packages', href: '/home', current: false },
 ];
-const userNavigation = [
-  { name: 'Your Profile', href: '' },
-  { name: 'My Cart', href: '/cart' },
-  { name: 'My Bookmarks', href: '/bookMark' },
-  { name: 'Settings', href: '#' },
-  { name: 'Sign out', href: '#' },
-];
+
+
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
@@ -79,6 +74,19 @@ export default function Example() {
     }
   };
 
+  const handleMyCart=()=>{
+    navigate('/cart');
+  }
+  const handleMyBookmarks=()=>{
+    navigate('/bookMark');
+  }
+  const userNavigation = [
+    { name: 'Your Profile', href: '' },
+    { name: 'My Cart', href: '/cart',onClick: handleMyCart },
+    { name: 'My Bookmarks', href: '/bookMark',onClick: handleMyBookmarks},
+    { name: 'Settings', href: '#' },
+    { name: 'Sign out', href: '#' },
+  ];
   return (
     <Disclosure as="nav" className="bg-gray-800">
       {({ open }) => (
@@ -162,12 +170,12 @@ export default function Example() {
                       leaveTo="transform opacity-0 scale-95"
                     >
                       <MenuItems className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                        {userNavigation.map((item) => (
+                      {userNavigation.map((item) => (
                           <MenuItem key={item.name}>
                             {({ focus }) => (
                               <a
-                                href={item.href}
-                                onClick={item.name === 'Sign out' ? handleSignOut : undefined}
+                                
+                                onClick={item.onClick ? item.onClick : undefined}
                                 className={classNames(
                                   focus ? 'bg-gray-100' : '',
                                   'block px-4 py-2 text-sm text-gray-700'

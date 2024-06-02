@@ -24,7 +24,7 @@ const RegisterComponent = () => {
       let payload = {}
       payload.email = email
       payload.password= password
-      const res =await axios.post('https://gurkul.onrender.com/login',payload)
+      const res =await axios.post('https://gurkul.onrender.com/signin',payload)
       console.log(res)
       if(res.status===200){
         localStorage.setItem('login',true)
