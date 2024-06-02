@@ -99,7 +99,7 @@ export default function Example() {
                   </DisclosureButton>
                 </div>
                 <div className="flex flex-shrink-0 items-center">
-                  <a href='/'>
+                  <a href='/home'>
                     <img
                       className="h-8 w-auto"
                       src={logo}

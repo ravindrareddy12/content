@@ -71,8 +71,6 @@ const App = () => {
   let payload = []
   payload.push(contentOfferings)
   payload.push(offering)
-    // Add the new content offerings to the existing array
-    const updatedContentOfferingsData = [...contentOfferingsData, contentOfferings];
 
     // Update the state
     setContentOfferingsData(payload);
