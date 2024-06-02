@@ -1,86 +1,33 @@
 Proposal Management System
-This is a Proposal Management System built using the MERN stack (MongoDB, Express.js, React.js, Node.js). The system allows users to register, login, browse available proposals, filter them based on various criteria, add proposals to their cart, and bookmark interesting proposals.
-
-Getting Started with Create React App
-This project was bootstrapped with Create React App.
-
-Available Scripts
-In the project directory, you can run:
-
-npm start
-Runs the app in the development mode.
-Open http://localhost:3000 to view it in your browser.
-
-The page will reload when you make changes.
-You may also see any lint errors in the console.
-
-npm test
-Launches the test runner in the interactive watch mode.
-See the section about running tests for more information.
-
-npm run build
-Builds the app for production to the build folder.
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.
-Your app is ready to be deployed!
-
-See the section about deployment for more information.
-
-npm run eject
-Note: this is a one-way operation. Once you eject, you can't go back!
-
-If you aren't satisfied with the build tool and configuration choices, you can eject at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except eject will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use eject. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However, we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-Learn More
-You can learn more in the Create React App documentation.
-
-To learn React, check out the React documentation.
-
-Code Splitting
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-Analyzing the Bundle Size
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-Making a Progressive Web App
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-Advanced Configuration
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-Deployment
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-npm run build fails to minify
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+Introduction
+This Proposal Management System is a web application built using the MERN (MongoDB, Express.js, React.js, Node.js) stack. It allows users to register and login, view available proposals, filter them based on category, budget, price, and language, add proposals to their cart, and bookmark interesting proposals. Additionally, users can add new proposals, view them in the proposal list, and manage them.
 
 Features
 User Authentication: Users can register and login securely to access the system.
-Proposal Listing: Upon login, users can view a list of available proposals.
-Filtering: Users can filter proposals based on category, budget, price, and language preferences.
-Cart Functionality: Users can add proposals to their cart for further review and action.
-Bookmarking: Users can bookmark proposals to save them for later reference.
-Adding New Proposals: Users have the ability to contribute by adding new proposals to the system.
-Proposal Details: Each proposal includes detailed information entered by users.
+Proposal Filtering: Users can filter proposals based on category, budget, price, and language.
+Cart Management: Users can add proposals to their cart for later review and action.
+Bookmarking: Users can bookmark proposals for quick access.
+Add New Proposals: Users can add new proposals to the system, providing details that are saved in the database.
+Proposal List: Users can view all proposals in a list format.
 Technologies Used
-Frontend: React.js
-Backend: Node.js, Express.js
-Database: MongoDB
-Authentication: JSON Web Tokens (JWT)
+Frontend: React.js for building the user interface.
+Backend: Node.js and Express.js for server-side logic.
+Database: MongoDB for storing proposal and user data.
+Styling: Tailwind CSS for styling the application.
+Getting Started
+Clone the Repository: git clone [repository_url]
+Install Dependencies: cd proposal-management && npm install
+Set Up Environment Variables: Create a .env file based on .env.example and configure necessary variables.
+Start the Development Server: npm start
+Access the Application: Open your browser and go to http://localhost:3000 to view the application.
+Folder Structure
+client: Contains the frontend code built with React.js.
+server: Contains the backend code built with Node.js and Express.js.
+database: Contains scripts and configurations related to MongoDB.
 Contributing
-Contributions are welcome! If you'd like to contribute to this project, please follow these steps:
+Contributions are welcome! If you find any issues or have suggestions for improvements, feel free to open an issue or create a pull request.
 
-Fork the repository
-Create your feature branch: git checkout -b feature-name
-Commit your changes: git commit -am 'Add some feature'
-Push to the branch: git push origin feature-name
-Submit a pull request
 License
 This project is licensed under the MIT License.
 
-This structure gives users a clear understanding of how to set up and work with your project, as well as the features it offers and how they can contribute to it.
+Feel free to customize this README according to your project's specific details and requirements!
