@@ -4,11 +4,7 @@ import Header from '../common/Header';
 import pro from '../../assets/images/pro.png';
 
 function ProductItem({ product, index, onRemove }) {
-  const [quantity, setQuantity] = useState(1);
-
-  const handleQuantityChange = (e) => {
-    setQuantity(parseInt(e.target.value));
-  };
+  // const [quantity, setQuantity] = useState(1);
 
   return (
     <li key={product.id} className="flex py-6 sm:py-10">
@@ -87,20 +83,19 @@ function OrderSummary({ subtotal, shipping, tax, total, onCheckout }) {
         <div className="flex items-center justify-between border-t border-gray-200 pt-4">
           <dt className="flex items-center text-sm text-gray-600">
             <span>Shipping estimate</span>
-            <a href="#" className="ml-2 flex-shrink-0 text-gray-400 hover:text-gray-500">
+            
               <span className="sr-only">Learn more about how shipping is calculated</span>
               <QuestionMarkCircleIcon className="h-5 w-5" aria-hidden="true" />
-            </a>
+           
           </dt>
           <dd className="text-sm font-medium text-gray-900">${shipping}</dd>
         </div>
         <div className="flex items-center justify-between border-t border-gray-200 pt-4">
           <dt className="flex text-sm text-gray-600">
             <span>Tax estimate</span>
-            <a href="#" className="ml-2 flex-shrink-0 text-gray-400 hover:text-gray-500">
               <span className="sr-only">Learn more about how tax is calculated</span>
               <QuestionMarkCircleIcon className="h-5 w-5" aria-hidden="true" />
-            </a>
+         
           </dt>
           <dd className="text-sm font-medium text-gray-900">{tax}</dd>
         </div>
@@ -242,7 +237,7 @@ export default function ShoppingCart() {
           <form className="mt-12 lg:grid lg:grid-cols-12 lg:items-start lg:gap-x-12 xl:gap-x-16">
             <section aria-labelledby="cart-heading" className="lg:col-span-7">
               <h2 id="cart-heading" className="sr-only">Items in your shopping cart</h2>
-              <ul role="list" className="divide-y divide-gray-200 border-b border-t border-gray-200">
+              <ul  className="divide-y divide-gray-200 border-b border-t border-gray-200">
                 {cartProducts.length>0 ? cartProducts.map((product, index) => (
                   <ProductItem key={product.id} product={product} index={index} onRemove={handleRemoveProduct} />
                 )) : <h1 >

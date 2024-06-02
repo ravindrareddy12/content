@@ -1,6 +1,6 @@
 import { Fragment,useState,useEffect } from 'react'
 import logo from '../../assets/images/logo.png'
-import { Link,useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import {
   Disclosure,
   DisclosureButton,
