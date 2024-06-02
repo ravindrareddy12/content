@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
 import Header from '../common/Header';
-
+import ProposalReview from './ProposalReview'
 const App = () => {
   const [selectedProgress, setSelectedProgress] = useState('add-offering');
   const [offering, setOffering] = useState({
     offcategory: '',
-    websiteName: '',
+    name: '',
     websiteLink: '',
-    websiteDescription: '',
+    description: '',
     websiteLogo: '',
     offEmail: '',
     telId: '',
-    contentLang: '',
-    geoLoc: '',
+    contentLang: 'english',
+    region: 'usa',
     gamblingYes: false,
     adultYes: false,
     cryptoYes: false,
@@ -20,6 +20,7 @@ const App = () => {
     adultNo: false,
     cryptoNo: false,
     uploadpdf: '',
+    
   });
 
   const [contentOfferings, setContentOfferings] = useState({
@@ -28,6 +29,8 @@ const App = () => {
     socialshare: false,
     homepage: false,
     gambling: false,
+    price:0,
+    discountedPri:0
   });
 
   const [contentOfferingsData, setContentOfferingsData] = useState([]);
@@ -63,9 +66,27 @@ const App = () => {
   };
 
   const saveContentOfferings = () => {
-    setContentOfferingsData((prev) => [...prev, contentOfferings]);
-    localStorage.setItem('contentOfferingsData', JSON.stringify([...contentOfferingsData, contentOfferings]));
+    console.log(offering);
+    console.log(contentOfferings);
+  let payload = []
+  payload.push(contentOfferings)
+  payload.push(offering)
+    // Add the new content offerings to the existing array
+    const updatedContentOfferingsData = [...contentOfferingsData, contentOfferings];
+
+    // Update the state
+    setContentOfferingsData(payload);
+    console.log(contentOfferingsData)
+
+    console.log(payload)
+    // Optionally, store the updated data in localStorage
+    localStorage.setItem('contentOfferingsData', JSON.stringify(payload));
+
   };
+
+  const selectedProgre =(selectedProgress)=>{
+    setSelectedProgress(selectedProgress)
+  }
 
   return (
     <>
@@ -119,7 +140,7 @@ const App = () => {
             <form onSubmit={handleSubmit}>
               <h2 className="font-semibold mb-4">Add Offering</h2>
               <div className="mb-4">
-                <label htmlFor="offcategory" className="block mb-2">Select Category</label>
+                <label className="block mb-2">Select Category</label>
                 <select
                   id="offcategory"
                   value={offering.offcategory}
@@ -133,17 +154,17 @@ const App = () => {
               <div className="mb-4">
                 <div className="flex mb-4">
                   <div className="w-1/2 pr-2">
-                    <label htmlFor="websiteName" className="block mb-2">Website Name</label>
+                    <label  className="block mb-2">Website Name</label>
                     <input
                       type="text"
-                      id="websiteName"
+                      id="name"
                       className="w-full p-2 border border-gray-300 rounded"
-                      value={offering.websiteName}
-                      onChange={(e) => setOffering((prev) => ({ ...prev, websiteName: e.target.value }))}
+                      value={offering.name}
+                      onChange={(e) => setOffering((prev) => ({ ...prev, name: e.target.value }))}
                     />
                   </div>
                   <div className="w-1/2 pl-2">
-                    <label htmlFor="websiteLink" className="block mb-2">Website Link</label>
+                    <label  className="block mb-2">Website Link</label>
                     <input
                       type="text"
                       id="websiteLink"
@@ -155,19 +176,19 @@ const App = () => {
                 </div>
                 {/* Add more form fields as needed */}
                 <div className="mb-4">
-                  <label htmlFor="websiteDescription" className="block mb-2">Website Description</label>
+                  <label  className="block mb-2">Website Description</label>
                   <input
                     type="text"
-                    id="websiteDescription"
+                    id="description"
                     placeholder='Type Description Here...'
                     className="w-full p-2 border border-gray-300 rounded"
-                    value={offering.websiteDescription}
-                    onChange={(e) => setOffering((prev) => ({ ...prev, websiteDescription: e.target.value }))}
+                    value={offering.description}
+                    onChange={(e) => setOffering((prev) => ({ ...prev, description: e.target.value }))}
                   />
                 </div>
                 {/* Image upload input */}
                 <div className="mb-4">
-                  <label htmlFor="websiteLogo" className="block mb-2">Website Logo</label>
+                  <label  className="block mb-2">Website Logo</label>
                   <input
                     type="file"
                     id="websiteLogo"
@@ -192,7 +213,7 @@ const App = () => {
                 </div>
                 <div className="flex mb-4">
                   <div className="w-1/2 pr-2">
-                    <label htmlFor="offEmail" className="block mb-2">Official Email</label>
+                    <label  className="block mb-2">Official Email</label>
                     <input
                       type="text"
                       id="offEmail"
@@ -202,7 +223,7 @@ const App = () => {
                     />
                   </div>
                   <div className="w-1/2 pl-2">
-                    <label htmlFor="telId" className="block mb-2">Telegram ID</label>
+                    <label  className="block mb-2">Telegram ID</label>
                     <input
                       type="text"
                       id="telId"
@@ -214,7 +235,7 @@ const App = () => {
                 </div>
                 <div className="flex mb-4">
                   <div className="w-1/2 pr-2">
-                    <label htmlFor="contentLang" className="block mb-2">Select Content Language</label>
+                    <label  className="block mb-2">Select Content Language</label>
                     <select
                       id="contentLang"
                       className="w-full p-2 border border-gray-300 rounded"
@@ -227,10 +248,10 @@ const App = () => {
                   <div className="w-1/2 pl-2">
                     <label htmlFor="geoLoc" className="block mb-2">Select Geographic Location</label>
                     <select
-                      id="geoLoc"
+                      id="region"
                       className="w-full p-2 border border-gray-300 rounded"
-                      value={offering.geoLoc}
-                      onChange={(e) => setOffering((prev) => ({ ...prev, geoLoc: e.target.value }))}
+                      value={offering.region}
+                      onChange={(e) => setOffering((prev) => ({ ...prev, region: e.target.value }))}
                     >
                       <option value="usa">USA</option>
                     </select>
@@ -350,17 +371,17 @@ const App = () => {
                   <div className="w-1/2 pr-2">
                     <label htmlFor="mediaKitPri" className="block mb-2">Media Kit Price</label>
                     <input
-                      type="text"
+                      type="number"
                       id="mediaKitPri"
                       className="w-full p-2 border border-gray-300 rounded"
-                      value={contentOfferings.mediaKitPri}
-                      onChange={(e) => setContentOfferings({ ...contentOfferings, mediaKitPri: e.target.value })}
+                      value={contentOfferings.price}
+                      onChange={(e) => setContentOfferings({ ...contentOfferings, price: e.target.value })}
                     />
                   </div>
                   <div className="w-1/2 pl-2">
                     <label htmlFor="discountedPri" className="block mb-2">Discounted Price</label>
                     <input
-                      type="text"
+                      type="number"
                       id="discountedPri"
                       className="w-full p-2 border border-gray-300 rounded"
                       value={contentOfferings.discountedPri}
@@ -368,6 +389,7 @@ const App = () => {
                     />
                   </div>
                 </div>
+                <h2 className="font-semibold mb-4">Features</h2>
               <div className="mb-4">
                 <label className="inline-flex items-center mb-2">
                   <input
@@ -430,14 +452,14 @@ const App = () => {
           {selectedProgress === 'review' && (
             <div>
               <h2 className="font-semibold mb-4">Review</h2>
-              <p>Review your information here.</p>
-              {/* Add code to review the information */}
+              <ProposalReview updateselectedProgre= {selectedProgre} />
+              
             </div>
           )}
         </div>
         <div className="w-1/4 p-4 border-l border-gray-200">
           <h2 className="font-semibold">Your offering drafts</h2>
-          {/* Add draft items here */}
+         
         </div>
     </div>
     </>
