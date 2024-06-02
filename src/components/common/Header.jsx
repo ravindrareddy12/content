@@ -1,6 +1,6 @@
-import { Fragment,useState,useEffect } from 'react'
-import logo from '../../assets/images/logo.png'
-import { useNavigate } from 'react-router-dom'
+import { Fragment, useState, useEffect } from 'react';
+import logo from '../../assets/images/logo.png';
+import { useNavigate } from 'react-router-dom';
 import {
   Disclosure,
   DisclosureButton,
@@ -10,37 +10,38 @@ import {
   MenuItem,
   MenuItems,
   Transition,
-} from '@headlessui/react'
-import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
-import { PlusIcon } from '@heroicons/react/20/solid'
+} from '@headlessui/react';
+import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
+import { PlusIcon } from '@heroicons/react/20/solid';
 
 const user = {
   name: 'Tom Cook',
   email: 'tom@example.com',
   imageUrl:
     'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-}
+};
 const navigation = [
-  { name: '360 Marketing', href: '/', current: true },
-  { name: 'Market Place ', href: '/', current: false },
-  { name: 'Pakages', href: '/', current: false },
-]
+  { name: '360 Marketing', href: '/home', current: true },
+  { name: 'Market Place ', href: '/home', current: false },
+  { name: 'Packages', href: '/home', current: false },
+];
 const userNavigation = [
   { name: 'Your Profile', href: '' },
   { name: 'My Cart', href: '/cart' },
   { name: 'My Bookmarks', href: '/bookMark' },
   { name: 'Settings', href: '#' },
   { name: 'Sign out', href: '#' },
-]
+];
 
 function classNames(...classes) {
-  return classes.filter(Boolean).join(' ')
+  return classes.filter(Boolean).join(' ');
 }
 
 export default function Example() {
-  const [cartCount, setCartCount] = useState(0); 
+  const [cartCount, setCartCount] = useState(0);
   const [bookmarkCount, setBookmarkCount] = useState(0);
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
+
   useEffect(() => {
     const updateCounts = () => {
       const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
@@ -49,7 +50,7 @@ export default function Example() {
       setBookmarkCount(bookmarkItems.length);
     };
 
-    updateCounts(); 
+    updateCounts();
 
     const storageListener = () => {
       updateCounts();
@@ -61,8 +62,21 @@ export default function Example() {
       window.removeEventListener('storage', storageListener);
     };
   }, []);
+
   const handleClick = () => {
-    navigate('/newproposal'); 
+    navigate('/newproposal');
+  };
+
+  const handleSignOut = async () => {
+    console.log("function called")
+    try {
+      localStorage.setItem('login',false)
+
+
+      navigate('/'); 
+    } catch (error) {
+      console.error('Error signing out:', error);
+    }
   };
 
   return (
@@ -86,11 +100,11 @@ export default function Example() {
                 </div>
                 <div className="flex flex-shrink-0 items-center">
                   <a href='/'>
-                  <img
-                    className="h-8 w-auto"
-                    src={logo}
-                    alt="Your Company"
-                  />
+                    <img
+                      className="h-8 w-auto"
+                      src={logo}
+                      alt="Your Company"
+                    />
                   </a>
                 </div>
                 <div className="hidden md:ml-6 md:flex md:items-center md:space-x-4">
@@ -153,6 +167,7 @@ export default function Example() {
                             {({ focus }) => (
                               <a
                                 href={item.href}
+                                onClick={item.name === 'Sign out' ? handleSignOut : undefined}
                                 className={classNames(
                                   focus ? 'bg-gray-100' : '',
                                   'block px-4 py-2 text-sm text-gray-700'
@@ -223,6 +238,7 @@ export default function Example() {
                     key={item.name}
                     as="a"
                     href={item.href}
+                    onClick={item.name === 'Sign out' ? handleSignOut : undefined}
                     className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white"
                   >
                     {item.name}
@@ -234,5 +250,5 @@ export default function Example() {
         </>
       )}
     </Disclosure>
-  )
+  );
 }
