@@ -18,16 +18,11 @@ Welcome to the Proposal Management System! This web application is designed to s
 - **Styling**: Tailwind CSS
 
 ## Getting Started
-1. **Clone the Repository**: `git clone [repository_url]`
-2. **Install Dependencies**: `cd proposal-management && npm install`
-3. **Set Up Environment Variables**: Create a `.env` file based on `.env.example` and configure necessary variables.
+1. **Clone the Repository**: `git clone https://github.com/ravindrareddy12/content`
+2. **Install Dependencies**: `cd content & npm install`
 4. **Start the Development Server**: `npm start`
 5. **Access the Application**: Open your browser and go to `http://localhost:3000` to view the application.
 
-## Folder Structure
-- **client**: Frontend code
-- **server**: Backend code
-- **database**: MongoDB scripts and configurations
 
 ## Contributing
 Contributions are welcome! If you find any issues or have suggestions for improvements, feel free to open an issue or create a pull request.
